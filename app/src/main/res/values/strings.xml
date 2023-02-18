@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">TabipApp</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="hasta_durum_item">
+        <item>Baygın</item>
+        <item>Renk Soluk</item>
+        <item>Kusma</item>
+    </string-array>
+
+
+    <string name="toggle_flash">Toggle Flash</string>
+    <string name="scanned_data">Scanned Data</string>
+    <string name="audio_recorder">Audio Recorder</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+    <string name="play_recording">Play Recording</string>
+    <string name="stop_playing">Stop Playing</string>
+    <string name="status">Status</string>
+
+
+
+    <string name="scan">Scan</string>
+    <string name="stop_scan">Stop scan</string>
+    <string name="start_measure">Start measure</string>
+    <string name="wait_adjust">Waiting for calibration</string>
+    <string name="bg_result">Blood glucose: </string>
+    <string name="heart_rate">Heart rate: </string>
+    <string name="diastolic">Diastolic:</string>
+    <string name="systolic">Systolic:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="battery">Battery:</string>
+    <string name="firmware">Firmware:</string>
+    <string name="manufacturer">Manufacturer:</string>
+    <string name="respiratory_rate">Respiratory rate:</string>
+    <string name="rr_max">RR Max:</string>
+    <string name="rr_min">RR Min:</string>
+    <string name="hrv">hrv:</string>
+    <string name="spo2">Spo2：</string>
+    <string name="stop_measure">Stop measure</string>
+    <string name="adjust_failed">calibration failed</string>
+    <string name="wait_insert_paper">Wait for the test paper to be inserted</string>
+    <string name="wait_blood">Waiting for the blood to drip</string>
+    <string name="wait_bg_result">Waiting for blood glucose calculation results</string>
+    <string name="bg_measure_over">End of blood glucose measurement</string>
+    <string name="ecg_measure_time_too_short">The measurement time is too short</string>
+    <string name="bp_air_leak">There is air leakage, please check the air circuit and re-measure</string>
+    <string name="upgrade">upgrade</string>
+    <string name="firmware_upgrade">"Firmware upgrade "</string>
+    <string name="no_firmware">There are no firmware packages to upgrade</string>
+    <string name="select_firmware">Select firmware upgrade package</string>
+    <string name="firmware_version">"Firmware Version : "</string>
+    <string name="firmware_upgrading">The firmware is being upgraded</string>
+    <string name="device_info">Device</string>
+    <string name="bp">BP</string>
+    <string name="bg">BG</string>
+    <string name="bt">BT</string>
+    <string name="spo">Spo2</string>
+    <string name="ecg">ECG</string>
+    <string name="warning">Warning</string>
+    <string name="whether_disconnect">Whether to disconnect the Bluetooth connection</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="hint">Hint</string>
+    <string name="bp_measure_error">Measurement error, the result is invalid, please measure again</string>
+    <string name="ble_connecting">Connecting</string>
+    <string name="ble_connect_success">Connect success</string>
+    <string name="ble_connect_failed">connection succeeded</string>
+    <string name="ble_disconnected">Disconnected</string>
+    <string name="test_paper_pull_out">The test paper has been pulled out</string>
+    <string name="test_paper_used">Test paper have been used</string>
+    <string name="manufacturer_bene_check">Bene Check</string>
+    <string name="manufacturer_hmd">HMD BioMedical Inc.</string>
+    <string name="manufacturer_yi_cheng">Yi Cheng</string>
+    <string name="get_bg_result_timeout">Timeout in obtaining blood glucose results, please re measure</string>
+</resources>

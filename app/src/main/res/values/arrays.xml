@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="function_list">
+        <item>BP</item>
+        <item>BG</item>
+        <item>BT</item>
+        <item>SPO2</item>
+        <item>ECG</item>
+        <item>Device</item>
+
+
+
+    </string-array>
+
+</resources>

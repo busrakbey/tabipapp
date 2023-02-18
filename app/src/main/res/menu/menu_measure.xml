@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    <item android:id="@+id/menu_item_delete"-->
+<!--        android:icon="@drawable/ic_delete_sweep_24"-->
+<!--        android:title="清除缓存文件"-->
+<!--        app:showAsAction="never"-->
+
+<!--        />-->
+
+<!--    <item android:id="@+id/menu_item_share"-->
+<!--        android:icon="@drawable/ic__share_24"-->
+<!--        android:title="分享"-->
+<!--        app:showAsAction="always"-->
+<!--        />-->
+
+    <item android:id="@+id/menu_item_upgrade"
+        android:icon="@android:drawable/ic_menu_upload_you_tube"
+        android:title="@string/upgrade"
+        app:showAsAction="always"
+        />
+
+</menu>

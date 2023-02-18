@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainCoordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteCardColor"
+    android:fitsSystemWindows="true"
+    android:focusableInTouchMode="true">
+
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="75dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@id/cordinatorBottom"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                tools:ignore="NotSibling">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_horizontal"
+                    app:elevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="4dp">
+
+
+                        <ImageView
+                            android:id="@+id/vector_1"
+                            android:layout_width="11dp"
+                            android:layout_height="19dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="25dp"
+                            android:background="@drawable/vector" />
+
+                        <ImageView
+                            android:id="@+id/toolbar_logo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="35dp"
+                            android:padding="15dp"
+                            android:src="@drawable/thy3" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <Button
+                            android:id="@+id/kullanici_bilgileri_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/ic_mavi_cerceve2"
+                            android:drawableTop="@drawable/user_icon"
+                            android:paddingTop="4dp"
+                            android:text="Kullanıcı Bilgileri\n     "
+                            android:textAllCaps="false"
+                            android:textColor="#00051F"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="Search for a Flight"
+                            android:textAppearance="@style/search_for_"
+                            android:textColor="#000000"
+                            android:textSize="22sp"
+                            android:textStyle="bold"></TextView>
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ucus_autocomplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/ic_rectangle2"
+                            android:drawableLeft="@android:drawable/ic_menu_search"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="15dp"></AutoCompleteTextView>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/ic_rectangle2"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="0.8"
+                                android:text="Active Triaj"
+                                android:textAppearance="@style/search_for_"
+                                android:textColor="#000000"
+                                android:textSize="20sp"
+                                android:textStyle="bold"></TextView>
+
+                            <Button
+                                android:id="@+id/yeni_triyaj"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@drawable/add_button"></Button>
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/active_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:drawableRight="@android:drawable/ic_menu_search"
+                            android:paddingRight="10dp"></androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/ic_rectangle2"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_weight="0.8"
+                                android:text="Closing Triaj"
+                                android:textColor="#000000"
+                                android:textSize="20sp"
+                                android:textStyle="bold"></TextView>
+
+                            <Button
+                                android:id="@+id/sonlandirilma_zamani"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="8dp"
+                                android:background="@drawable/clock"></Button>
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/closing_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:drawableRight="@android:drawable/ic_menu_search"></androidx.recyclerview.widget.RecyclerView>
+                    </LinearLayout>
+
+
+                </com.google.android.material.appbar.AppBarLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <!-- Your Content here -->
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cordinatorBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shadow"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/scroll">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/shadow"
+            android:elevation="2dp"
+            app:fabAlignmentMode="center"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="1dp"
+            app:fabCradleVerticalOffset="0dp">
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:itemIconSize="40dp"
+                app:itemIconTint="#FF1203"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_navigation" />
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <!--  <com.google.android.material.card.MaterialCardView
+          android:id="@+id/cordinatorBottom"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardCornerRadius="4dp"
+          app:cardElevation="4dp"
+          app:cardUseCompatPadding="true"
+          app:layout_constraintBottom_toBottomOf="parent">
+
+
+          <View
+              android:id="@+id/rectangle_3"
+              android:layout_width="match_parent"
+              android:layout_height="65dp"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentTop="true"
+              android:background="@drawable/ic_rectangle30"
+              android:elevation="4dp"
+              app:layout_constraintStart_toStartOf="@id/scroll"
+              tools:visibility="visible" />
+
+      </com.google.android.material.card.MaterialCardView>> -->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

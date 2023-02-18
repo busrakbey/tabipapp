@@ -1,0 +1,28 @@
+<!--Card View widget-->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
+    android:layout_width="90dp"
+    android:layout_height="90dp"
+    android:layout_margin="7dp"
+    android:layout_marginRight="15dp"
+    card_view:cardBackgroundColor="#FFFFFF"
+    card_view:cardCornerRadius="45dp"
+    card_view:cardElevation="3dp"
+    card_view:strokeColor="#DFCA07"
+    card_view:strokeWidth="3dp">
+
+
+
+    <!--Text View over Card View-->
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#fff"
+        android:textSize="22dp" />
+
+</com.google.android.material.card.MaterialCardView>

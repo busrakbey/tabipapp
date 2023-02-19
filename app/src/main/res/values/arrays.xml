@@ -3,11 +3,11 @@
 
     <string-array name="function_list">
         <item>BP</item>
-        <item>BG</item>
         <item>BT</item>
-        <item>SPO2</item>
-        <item>ECG</item>
-        <item>Device</item>
+        <!--    <item>BG</item>
+            <item>SPO2</item>
+            <item>ECG</item>
+            <item>Device</item>-->
 
 
 

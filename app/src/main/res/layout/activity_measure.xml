@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:visibility="visible">
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="scrollable"/>
+        android:visibility="visible"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="#000000"
+        app:tabTextColor="@color/colorPrimary"
+        android:theme="@style/ThemeCustom.TabLayout"
+        tools:visibility="visible">
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.tabipapp.Adapter.BleDeviceAdapter;
 import com.example.tabipapp.R;
 import com.example.tabipapp.base.App;
@@ -216,7 +215,9 @@ public  class BluetoothActivity extends  BaseVBindingActivity<BluetoothActivityB
                     @Override
                     public void onDismiss(WaitDialog dialog) {
                         super.onDismiss(dialog);
-                        startActivity(new Intent(BluetoothActivity.this,MeasureActivity.class));
+                       // startActivity(new Intent(BluetoothActivity.this,MeasureActivity.class));
+                        startActivity(new Intent(BluetoothActivity.this, AllMeasureActivity.class));
+
                     }
                 });
 

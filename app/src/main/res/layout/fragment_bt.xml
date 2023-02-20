@@ -11,54 +11,64 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
+            android:id="@+id/bt_button"
             android:layout_width="0dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:lines="1"
             android:text="BT"
-            android:id="@+id/bt_button"></Button>
+            android:textSize="12sp"></Button>
 
         <Button
+            android:id="@+id/bp_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:text="BP"
-            android:id="@+id/bp_button"></Button>
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="BP"></Button>
 
         <Button
+            android:id="@+id/spo2_button"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginLeft="10dp"
-            android:text="BG"
-            android:id="@+id/bg_button"></Button>
-
-        <Button
-            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="ECG"
-            android:id="@+id/ecg_button"></Button>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:lines="1"
             android:text="SPO2"
-            android:id="@+id/spo2_button"></Button>
-    </LinearLayout>
+            android:textSize="12sp"></Button>
 
+        <Button
+            android:id="@+id/ecg_button"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="ECG"></Button>
+
+        <Button
+            android:id="@+id/bg_button"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="BG"></Button>
+
+
+    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/bt_layout"
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="0dp"
         android:layout_weight="0.9"
-        android:layout_height="0dp">
+        android:gravity="center"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textView2"
@@ -91,12 +101,105 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/spo2_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="gone"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvHr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="000 bpm"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/tvSpo2"
+            app:layout_constraintStart_toStartOf="@+id/tvSpo2"
+            app:layout_constraintTop_toBottomOf="@+id/tvSpo2" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/materialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp">
+
+            <com.example.tabipapp.UI.MinttiVision.WaveSurfaceView
+                android:id="@+id/bo_wave_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spo2"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSpo2"
+            app:layout_constraintEnd_toStartOf="@+id/tvSpo2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvSpo2"
+            android:layout_marginRight="50dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tvSpo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-- %"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvHr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/heart_rate"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHr"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/tvHr" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bp_layout"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_weight="0.9"
-        android:layout_height="0dp">
+        android:visibility="gone"
+        tools:visibility="gone">
+
         <TextView
             android:id="@+id/textView10"
             style="@style/common_text_color"
@@ -118,11 +221,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="-- /mmHg"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/textView12"
@@ -171,28 +276,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
+            android:textSize="28dp"
             app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="28dp"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"
+        tools:visibility="gone"
+        layout="@layout/fragment_ecg" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/bt_measure_bt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/start_measure"
-        android:textSize="18sp"
-        app:cornerRadius="25dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_measure_bt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/start_measure"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:cornerRadius="25dp"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </LinearLayout>
 </LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="ecg_gain">
+
+        <item>10mm/mv</item>
+        <item>20mm/mv</item>
+        <item>50mm/mv</item>
+    </string-array>
+
+</resources>

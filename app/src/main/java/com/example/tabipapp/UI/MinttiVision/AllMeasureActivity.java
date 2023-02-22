@@ -39,7 +39,7 @@ import com.mintti.visionsdk.ble.callback.ISpo2ResultListener;
 
 public class AllMeasureActivity extends AppCompatActivity implements IBtResultListener,
         IBpResultListener, IBleWriteResponse, IRawBpDataCallback, IBleConnectionListener,
-        ISpo2ResultListener, IEcgResultListener, ISmctAlgoCallback, IBgResultListener, Handler.Callback {
+        ISpo2ResultListener, IEcgResultListener, ISmctAlgoCallback, Handler.Callback {
     private static final int MSG_BP_RESULT = 1;
     private static final int MSG_BP_LEAK = 2;
     private static final int MSG_BP_ERROR = 3;

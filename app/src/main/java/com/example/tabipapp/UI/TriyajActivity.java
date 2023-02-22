@@ -2,23 +2,18 @@ package com.example.tabipapp.UI;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +22,6 @@ import androidx.fragment.app.Fragment;
 import com.example.tabipapp.Model.TriyajBilgileri;
 import com.example.tabipapp.R;
 import com.example.tabipapp.UI.MinttiVision.BluetoothActivity;
-import com.example.tabipapp.UI.MinttiVision.MeasureActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -41,7 +35,7 @@ public class TriyajActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Long gelenId = null;
     TriyajBilgileri gelenTriyaj;
-    List<TriyajBilgileri> allPassengerList = HomeActivity.allPassengerList;
+    List<TriyajBilgileri> allPassengerList = MainActivity.allPassengerList;
     String[] listItems;
     ArrayList<Integer> items = new ArrayList<>();
     boolean[] checkedItems;
@@ -219,7 +213,7 @@ public class TriyajActivity extends AppCompatActivity {
                     Intent i = null;
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            i = new Intent(TriyajActivity.this, HomeActivity.class);
+                            i = new Intent(TriyajActivity.this, MainActivity.class);
                             i.putExtra("gelenPage", "müşteri");
                             startActivity(i);
                             break;

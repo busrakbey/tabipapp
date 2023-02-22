@@ -119,7 +119,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.card.MaterialCardView
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/card_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -710,7 +710,7 @@
 
 
                         </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    </androidx.cardview.widget.CardView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -785,17 +785,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/scroll">
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/shadow"
-            android:elevation="1dp"
-            app:fabAlignmentMode="center"
-            app:fabCradleMargin="0dp"
-            app:fabCradleRoundedCornerRadius="1dp"
-            app:fabCradleVerticalOffset="0dp">
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -805,9 +794,9 @@
                 android:layout_gravity="center"
                 app:itemIconSize="40dp"
                 app:itemIconTint="#FF1203"
+                android:background="@color/white"
                 app:labelVisibilityMode="unlabeled"
                 app:menu="@menu/bottom_navigation" />
-        </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

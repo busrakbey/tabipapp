@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tabipapp.R;
 import com.example.tabipapp.UI.TriyajActivity;
 import com.example.tabipapp.Model.TriyajBilgileri;
+import com.example.tabipapp.UI.VideoCallActivity;
 
 import java.util.List;
 
@@ -55,6 +56,19 @@ public class TriyajAdapter extends RecyclerView.Adapter<TriyajAdapter.MyViewHold
                 mContext.getApplicationContext().startActivity(i);
             }
         });
+
+
+        holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Intent i = new Intent(mContext, VideoCallActivity.class);
+                i.putExtra("roomName" , myListData.getUcusNo());
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.getApplicationContext().startActivity(i);
+                return false;
+            }
+        });
+
     }
 
     @Override

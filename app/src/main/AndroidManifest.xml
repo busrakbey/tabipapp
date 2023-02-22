@@ -24,7 +24,7 @@
     <application
         android:name=".base.App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/thy2"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -48,28 +48,12 @@
         </activity>
 
         <activity
-            android:name=".UI.MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
-
-        <activity
-            android:name=".UI.FlightDetailsActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
-
-        <activity
-            android:name=".UI.RothmanIndexActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
-
-        <activity
             android:name=".UI.VideoCallActivity"
             android:theme="@style/Theme.Design.NoActionBar">
         </activity>
 
-
         <activity
-            android:name=".UI.HomeActivity"
+            android:name=".UI.MainActivity"
             android:theme="@style/Theme.Design.NoActionBar">
         </activity>
 

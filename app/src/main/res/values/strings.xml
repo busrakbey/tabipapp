@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TabipApp</string>
+    <string name="app_name">THY Tabip</string>
     <string name="action_settings">Settings</string>
 
     <string-array name="hasta_durum_item">

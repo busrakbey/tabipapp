@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:lines="1"
             android:text="BT"
+            app:backgroundTint="#F44336"
             android:textSize="12sp"></Button>
 
         <Button
@@ -28,6 +29,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:textSize="12sp"
+            app:backgroundTint="#F44336"
             android:text="BP"></Button>
 
         <Button
@@ -38,6 +40,7 @@
             android:layout_weight="1"
             android:lines="1"
             android:text="SPO2"
+            app:backgroundTint="#F44336"
             android:textSize="12sp"></Button>
 
         <Button
@@ -47,6 +50,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:textSize="12sp"
+            app:backgroundTint="#F44336"
             android:text="ECG"></Button>
 
         <Button
@@ -56,6 +60,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:textSize="12sp"
+            app:backgroundTint="#F44336"
             android:text="BG"></Button>
 
 
@@ -297,7 +302,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/bt_measure_bt"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -307,6 +312,7 @@
             android:text="@string/start_measure"
             android:textSize="18sp"
             android:visibility="gone"
+            app:backgroundTint="#F44336"
             app:cornerRadius="25dp"
             android:layout_alignParentBottom="true"
             app:layout_constraintBottom_toBottomOf="parent" />

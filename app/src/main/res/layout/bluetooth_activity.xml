@@ -25,7 +25,7 @@
 
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_scan"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -38,8 +38,9 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="20dp"
         android:textAllCaps="false"
+        app:backgroundTint="#F44336"
         app:cornerRadius="20dp">
-    </Button>
+    </com.google.android.material.button.MaterialButton>
 
 
 

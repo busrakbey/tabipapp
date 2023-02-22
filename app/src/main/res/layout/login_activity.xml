@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/giri_"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -43,7 +44,7 @@
     </LinearLayout>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,12 +53,12 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="100dp"
-        android:background="@drawable/begin"
         android:gravity="center"
         android:text="BEGIN"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:backgroundTint="#F44336" />
 
 </RelativeLayout>
 

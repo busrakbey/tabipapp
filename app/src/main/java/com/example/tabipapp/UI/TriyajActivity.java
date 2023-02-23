@@ -103,7 +103,7 @@ public class TriyajActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(TriyajActivity.this, VideoCallActivity.class);
-                i.putExtra("roomName" , gelenTriyaj.getUcusNo());
+                i.putExtra("roomName" , gelenTriyaj != null ? gelenTriyaj.getUcusNo() : "");
                 startActivity(i);
             }
         });

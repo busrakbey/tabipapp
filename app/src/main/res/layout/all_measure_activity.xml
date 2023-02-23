@@ -202,8 +202,8 @@
         android:layout_weight="0.9"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible"
-        tools:visibility="visible">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/textView10"

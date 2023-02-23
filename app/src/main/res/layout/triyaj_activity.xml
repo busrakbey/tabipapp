@@ -232,7 +232,7 @@
                                         android:layout_width="50dp"
                                         android:layout_height="50dp"
                                         android:layout_marginLeft="10dp"
-                                        android:background="@drawable/koltuk_no_background"
+                                        android:background="@drawable/koluk_no_button"
                                         android:gravity="center"
                                         android:textColor="#000000"
                                         android:textSize="14sp"
@@ -264,7 +264,7 @@
                                         android:layout_width="50dp"
                                         android:layout_height="50dp"
                                         android:layout_marginLeft="10dp"
-                                        android:background="@drawable/koltuk_no_background"
+                                        android:background="@drawable/koluk_no_button"
                                         android:drawableLeft="@drawable/info"
                                         android:padding="12dp"></Button>
 
@@ -348,7 +348,7 @@
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="10dp"
-                                            android:background="@drawable/koltuk_no_background"
+                                            android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
 
@@ -364,7 +364,7 @@
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="15dp"
-                                            android:background="@drawable/koltuk_no_background"
+                                            android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
 
@@ -380,7 +380,7 @@
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="10dp"
-                                            android:background="@drawable/koltuk_no_background"
+                                            android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
 
@@ -396,7 +396,7 @@
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="10dp"
-                                            android:background="@drawable/koltuk_no_background"
+                                            android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
 
@@ -412,7 +412,7 @@
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="10dp"
-                                            android:background="@drawable/koltuk_no_background"
+                                            android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
 

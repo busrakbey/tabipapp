@@ -7,9 +7,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +28,10 @@ import com.kongzue.dialogx.dialogs.MessageDialog;
 import com.kongzue.dialogx.dialogs.TipDialog;
 import com.kongzue.dialogx.dialogs.WaitDialog;
 import com.kongzue.dialogx.interfaces.DialogLifecycleCallback;
+import com.linktop.constant.TestPaper;
 import com.mintti.visionsdk.ble.BleManager;
+import com.mintti.visionsdk.ble.DeviceType;
+import com.mintti.visionsdk.ble.bean.BgEvent;
 import com.mintti.visionsdk.ble.bean.MeasureType;
 import com.mintti.visionsdk.ble.callback.IBgResultListener;
 import com.mintti.visionsdk.ble.callback.IBleConnectionListener;
@@ -37,9 +42,22 @@ import com.mintti.visionsdk.ble.callback.IEcgResultListener;
 import com.mintti.visionsdk.ble.callback.IRawBpDataCallback;
 import com.mintti.visionsdk.ble.callback.ISpo2ResultListener;
 
-public class AllMeasureActivity extends AppCompatActivity implements IBtResultListener,
-        IBpResultListener, IBleWriteResponse, IRawBpDataCallback, IBleConnectionListener,
-        ISpo2ResultListener, IEcgResultListener, ISmctAlgoCallback, Handler.Callback {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class AllMeasureActivity extends AppCompatActivity implements IBtResultListener, IBpResultListener, IBleWriteResponse, IRawBpDataCallback, IBleConnectionListener, ISpo2ResultListener, IEcgResultListener, ISmctAlgoCallback, IBgResultListener, Handler.Callback {
+    private static final int MSG_ADJUST_FAILED = 2;
+    private static final int MSG_WAIT_INSERT = 3;
+    private static final int MSG_WAIT_DRIP = 4;
+    private static final int MSG_DRIP_BLOOD = 5;
+    private static final int MSG_BG_MEASURE_OVER = 6;
+    private static final int MSG_PAPER_USED = 7;
+    private static final int MSG_GET_RESULT_TIMEOUT = 8;
+    private static final String BUNDLE_BG_RESULT = "bg_result";
+    protected String[] mTestPaperCodes;
+    protected String mManufacturer;
+
     private static final int MSG_BP_RESULT = 1;
     private static final int MSG_BP_LEAK = 2;
     private static final int MSG_BP_ERROR = 3;
@@ -60,26 +78,18 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
     private static final int MSG_HR = 1;
     private PPGDrawWave oxWave;
     private boolean isMeasureEnd;
-
-    private static final int MSG_ADJUST_FAILED = 2;
-    private static final int MSG_WAIT_INSERT = 3;
-    private static final int MSG_WAIT_DRIP = 4;
-    private static final int MSG_DRIP_BLOOD = 5;
-    private static final int MSG_BG_MEASURE_OVER = 6;
-    private static final int MSG_PAPER_USED = 7;
-    private static final int MSG_GET_RESULT_TIMEOUT = 8;
-    private static final String BUNDLE_BG_RESULT = "bg_result";
-    protected String[] mTestPaperCodes;
-    protected String mManufacturer;
     Guideline guide_line;
     ChartView ecg_view;
     TextView tv_ecg_duration, tv_rr_max_key, tv_rr_max_value, tv_rr_min_key, tv_rr_min_value, tv_avg_hr_key, tv_avg_hr_value, tv_hrv_key, tv_hrv_value, tv_resp_key, tv_resp_value;
-    AppCompatSpinner gain_spinner;
+    AppCompatSpinner gain_spinner, spin_test_paper_manufacturer, spin_test_paper_code;
+    TextView tv_bg_result, tv_bg_status;
+    LinearLayout ll_select_paper_code_container;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_bt);
+        setContentView(R.layout.all_measure_activity);
 
         initItems();
         bt_button.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +101,15 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                 bt_button_enabled = true;
                 bp_button_enabled = false;
                 ecg_button_enabled = false;
-                spo2_button_enabled=false;
+                spo2_button_enabled = false;
+                bg_button_enabled = false;
+                bg_layout.setVisibility(View.GONE);
                 bt_layout.setVisibility(View.VISIBLE);
                 bp_layout.setVisibility(View.GONE);
                 spo2_layout.setVisibility(View.GONE);
                 ecg_layout.setVisibility(View.GONE);
+                bg_layout.setVisibility(View.GONE);
+
             }
         });
 
@@ -110,7 +124,9 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                 bt_button_enabled = false;
                 bp_button_enabled = true;
                 ecg_button_enabled = false;
-                spo2_button_enabled=false;
+                spo2_button_enabled = false;
+                bg_button_enabled = false;
+                bg_layout.setVisibility(View.GONE);
                 bt_layout.setVisibility(View.GONE);
                 bp_layout.setVisibility(View.VISIBLE);
                 spo2_layout.setVisibility(View.GONE);
@@ -128,8 +144,10 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                 bt_measure_bt.setVisibility(View.VISIBLE);
                 bt_button_enabled = false;
                 bp_button_enabled = false;
-                spo2_button_enabled=true;
+                spo2_button_enabled = true;
                 ecg_button_enabled = false;
+                bg_button_enabled = false;
+                bg_layout.setVisibility(View.GONE);
                 bt_layout.setVisibility(View.GONE);
                 bp_layout.setVisibility(View.GONE);
                 spo2_layout.setVisibility(View.VISIBLE);
@@ -144,8 +162,10 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                 bt_measure_bt.setVisibility(View.VISIBLE);
                 bt_button_enabled = false;
                 bp_button_enabled = false;
-                spo2_button_enabled=false;
+                spo2_button_enabled = false;
                 ecg_button_enabled = true;
+                bg_button_enabled = false;
+                bg_layout.setVisibility(View.GONE);
                 bt_layout.setVisibility(View.GONE);
                 bp_layout.setVisibility(View.GONE);
                 spo2_layout.setVisibility(View.GONE);
@@ -179,6 +199,35 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                     gain_spinner.setSelection(2);
                 }
                 ecg_view.setSampleRate(BleManager.getInstance().getSampleRate());
+            }
+        });
+
+
+        bg_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stopAllMeasure();
+                bt_measure_bt.setVisibility(View.VISIBLE);
+                bt_button_enabled = false;
+                bp_button_enabled = false;
+                spo2_button_enabled = false;
+                ecg_button_enabled = false;
+                bg_button_enabled = true;
+                bt_layout.setVisibility(View.GONE);
+                bp_layout.setVisibility(View.GONE);
+                spo2_layout.setVisibility(View.GONE);
+                ecg_layout.setVisibility(View.GONE);
+                bg_layout.setVisibility(View.VISIBLE);
+
+                BleManager.getInstance().setBgResultListener(AllMeasureActivity.this);
+
+                if (BleManager.getInstance().getDeviceType() == DeviceType.TYPE_VISION) {
+                    initTestPaper();
+                } else {
+                    ll_select_paper_code_container.setVisibility(View.GONE);
+                }
+
+
             }
         });
 
@@ -239,11 +288,75 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                         }, 500);
 
                     }
+                } else if (bg_button_enabled == true) {
+                    if (bt_measure_bt.getText().equals(getString(R.string.start_measure))) {
+                        resetValueBg();
+                        BleManager.getInstance().startMeasure(MeasureType.TYPE_BG, AllMeasureActivity.this);
+                        bt_measure_bt.setEnabled(false);
+                    } else {
+                        bt_measure_bt.setText(R.string.start_measure);
+                        resetValueBg();
+                        BleManager.getInstance().stopMeasure(MeasureType.TYPE_BG, AllMeasureActivity.this);
+                    }
                 }
 
 
             }
         });
+    }
+
+    private void initTestPaper() {
+        String[] manufacturers = BleManager.getInstance().getTestPaperManufacturer();
+        ArrayAdapter<String> adapterManufacturer = new ArrayAdapter<>(AllMeasureActivity.this, android.R.layout.simple_spinner_dropdown_item, getManufacturerList(manufacturers));
+        spin_test_paper_manufacturer.setAdapter(adapterManufacturer);
+        spin_test_paper_manufacturer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mManufacturer = manufacturers[position];
+                mTestPaperCodes = BleManager.getInstance().getTestPaperCodesByManufacturer(mManufacturer);
+                ArrayAdapter<String> adapterTestPaper = new ArrayAdapter<>(AllMeasureActivity.this, android.R.layout.simple_spinner_dropdown_item, Arrays.asList(mTestPaperCodes));
+                spin_test_paper_code.setAdapter(adapterTestPaper);
+                if (TestPaper.Manufacturer.YI_CHENG.equals(mManufacturer)) {
+                    spin_test_paper_code.setSelection(TestPaper.Code.indexOf(mTestPaperCodes, TestPaper.Code.C20));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spin_test_paper_code.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                BleManager.getInstance().setTestPaper(mManufacturer, mTestPaperCodes[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spin_test_paper_manufacturer.setSelection(TestPaper.Manufacturer.indexOf(TestPaper.Manufacturer.YI_CHENG));
+    }
+
+    private List<String> getManufacturerList(String[] array) {
+        List<String> list = new ArrayList<>();
+        for (String name : array) {
+            switch (name) {
+                case TestPaper.Manufacturer.HMD:
+                    list.add(getString(R.string.manufacturer_hmd));
+                    break;
+                case TestPaper.Manufacturer.BENE_CHECK:
+                    list.add(getString(R.string.manufacturer_bene_check));
+                    break;
+                case TestPaper.Manufacturer.YI_CHENG:
+                    list.add(getString(R.string.manufacturer_yi_cheng));
+                    break;
+            }
+        }
+        return list;
     }
 
     @Override
@@ -404,6 +517,44 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                     return false;
             }
         }
+        else if (bg_button_enabled == true){
+            bt_measure_bt.setEnabled(true);
+            bt_measure_bt.setText(R.string.stop_measure);
+            switch (msg.what){
+
+                case MSG_ADJUST_FAILED:
+                    tv_bg_result.setText(R.string.adjust_failed);
+                    Toast.makeText(AllMeasureActivity.this, getString(R.string.adjust_failed),
+                            Toast.LENGTH_LONG).show();
+                    bt_measure_bt.setText(R.string.start_measure);
+                    return true;
+                case MSG_WAIT_INSERT:
+                    tv_bg_status.setText(R.string.wait_insert_paper);
+                    bt_measure_bt.setText(R.string.start_measure);
+                    return true;
+                case MSG_WAIT_DRIP:
+                    tv_bg_status.setText(R.string.wait_blood);
+                    return true;
+                case MSG_DRIP_BLOOD:
+                    tv_bg_status.setText(R.string.wait_bg_result);
+                    return true;
+                case MSG_BG_MEASURE_OVER:
+                    Bundle bundle = msg.getData();
+                    tv_bg_status.setText(R.string.bg_measure_over);
+                    tv_bg_result.setText((bundle.getDouble(BUNDLE_BG_RESULT)) +"mmol/L");
+                    bt_measure_bt.setText(R.string.start_measure);
+                    return true;
+                case MSG_PAPER_USED:
+                    tv_bg_status.setText(R.string.test_paper_used);
+                    return true;
+                case MSG_GET_RESULT_TIMEOUT:
+                    tv_bg_status.setText(R.string.get_bg_result_timeout);
+                    bt_measure_bt.setText(R.string.start_measure);
+                    return true;
+
+            }
+
+        }
         return false;
 
     }
@@ -547,53 +698,58 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
         });
     }
 
-    private void resetResultEcg(){
-        tv_rr_max_value.setText(  "-- ms");
-        tv_rr_min_value.setText( "-- ms");
+    private void resetResultEcg() {
+        tv_rr_max_value.setText("-- ms");
+        tv_rr_min_value.setText("-- ms");
         tv_hrv_value.setText("-- ms");
         tv_avg_hr_value.setText("-- fms");
         tv_resp_value.setText("-- ms");
         tv_ecg_duration.setText("00:00");
     }
 
-    void initItems(){
+    void initItems() {
         oxWave = new PPGDrawWave();
-        bt_measure_bt = (Button) findViewById(R.id.bt_measure_bt);
-        bt_button = (Button) findViewById(R.id.bt_button);
-        bp_button = (Button) findViewById(R.id.bp_button);
-        bg_button = (Button) findViewById(R.id.bg_button);
-        spo2_button = (Button) findViewById(R.id.spo2_button);
-        ecg_button = (Button) findViewById(R.id.ecg_button);
-        bt_layout = (LinearLayout) findViewById(R.id.bt_layout);
-        ecg_layout = (ConstraintLayout) findViewById(R.id.ecg_layout);
-        bp_layout = (ConstraintLayout) findViewById(R.id.bp_layout);
-        spo2_layout = (ConstraintLayout) findViewById(R.id.spo2_layout);
-        bg_layout = (ConstraintLayout) findViewById(R.id.bg_layout);
-        tv_systolic_value = (TextView) findViewById(R.id.tv_systolic_value);
-        tv_hr_value = (TextView) findViewById(R.id.tv_hr_value);
-        tv_diastolic_value = (TextView) findViewById(R.id.tv_diastolic_value);
-        tv_pressure = (TextView) findViewById(R.id.tv_pressure);
-        bo_wave_view = (WaveSurfaceView) findViewById(R.id.bo_wave_view);
-        tvSpo2 = (TextView) findViewById(R.id.tvSpo2);
-        tvHr = (TextView) findViewById(R.id.tvHr);
-        tv_rr_max_key = (TextView) findViewById(R.id.tv_rr_max_key);
-        tv_rr_max_value = (TextView) findViewById(R.id.tv_rr_max_value);
-        tv_rr_min_key = (TextView) findViewById(R.id.tv_rr_min_key);
-        tv_rr_min_value = (TextView) findViewById(R.id.tv_rr_min_value);
-        tv_avg_hr_key = (TextView) findViewById(R.id.tv_avg_hr_key);
-        tv_avg_hr_value = (TextView) findViewById(R.id.tv_avg_hr_value);
-        tv_hrv_key = (TextView) findViewById(R.id.tv_hrv_key);
-        tv_hrv_value = (TextView) findViewById(R.id.tv_hrv_value);
-        tv_resp_key = (TextView) findViewById(R.id.tv_resp_key);
-        tv_resp_value = (TextView) findViewById(R.id.tv_resp_value);
-        tv_bt = (TextView) findViewById(R.id.tv_bt);
-        guide_line = (Guideline) findViewById(R.id.guide_line);
-        ecg_view = (ChartView) findViewById(R.id.ecg_view);
-        tv_ecg_duration = (TextView) findViewById(R.id.tv_ecg_duration);
-        gain_spinner = (AppCompatSpinner) findViewById(R.id.gain_spinner);
-
+        bt_measure_bt = findViewById(R.id.bt_measure_bt);
+        bt_button = findViewById(R.id.bt_button);
+        bp_button = findViewById(R.id.bp_button);
+        bg_button = findViewById(R.id.bg_button);
+        spo2_button = findViewById(R.id.spo2_button);
+        ecg_button = findViewById(R.id.ecg_button);
+        bt_layout = findViewById(R.id.bt_layout);
+        ecg_layout = findViewById(R.id.ecg_layout);
+        bp_layout = findViewById(R.id.bp_layout);
+        spo2_layout = findViewById(R.id.spo2_layout);
+        bg_layout = findViewById(R.id.bg_layout);
+        tv_systolic_value = findViewById(R.id.tv_systolic_value);
+        tv_hr_value = findViewById(R.id.tv_hr_value);
+        tv_diastolic_value = findViewById(R.id.tv_diastolic_value);
+        tv_pressure = findViewById(R.id.tv_pressure);
+        bo_wave_view = findViewById(R.id.bo_wave_view);
+        tvSpo2 = findViewById(R.id.tvSpo2);
+        tvHr = findViewById(R.id.tvHr);
+        tv_rr_max_key = findViewById(R.id.tv_rr_max_key);
+        tv_rr_max_value = findViewById(R.id.tv_rr_max_value);
+        tv_rr_min_key = findViewById(R.id.tv_rr_min_key);
+        tv_rr_min_value = findViewById(R.id.tv_rr_min_value);
+        tv_avg_hr_key = findViewById(R.id.tv_avg_hr_key);
+        tv_avg_hr_value = findViewById(R.id.tv_avg_hr_value);
+        tv_hrv_key = findViewById(R.id.tv_hrv_key);
+        tv_hrv_value = findViewById(R.id.tv_hrv_value);
+        tv_resp_key = findViewById(R.id.tv_resp_key);
+        tv_resp_value = findViewById(R.id.tv_resp_value);
+        tv_bt = findViewById(R.id.tv_bt);
+        guide_line = findViewById(R.id.guide_line);
+        ecg_view = findViewById(R.id.ecg_view);
+        tv_ecg_duration = findViewById(R.id.tv_ecg_duration);
+        gain_spinner = findViewById(R.id.gain_spinner);
+        spin_test_paper_manufacturer = findViewById(R.id.spin_test_paper_manufacturer);
+        spin_test_paper_code = findViewById(R.id.spin_test_paper_code);
+        tv_bg_result = findViewById(R.id.tv_bg_result);
+        tv_bg_status = findViewById(R.id.tv_bg_status);
+        ll_select_paper_code_container = findViewById(R.id.ll_select_paper_code_container);
     }
-    void stopAllMeasure(){
+
+    void stopAllMeasure() {
         BleManager.getInstance().stopMeasure(MeasureType.TYPE_BT, AllMeasureActivity.this);
         BleManager.getInstance().stopMeasure(MeasureType.TYPE_BP, AllMeasureActivity.this);
         BleManager.getInstance().stopMeasure(MeasureType.TYPE_BG, AllMeasureActivity.this);
@@ -604,8 +760,56 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
             public void run() {
                 ecg_view.clearDatas();
             }
-        },500);
+        }, 500);
         bt_measure_bt.setText(R.string.start_measure);
+    }
+
+
+    @Override
+    public void onBgEvent(BgEvent bgEvent) {
+        switch (bgEvent) {
+            case BG_EVENT_CALIBRATION_FAILED:
+                handler.sendEmptyMessage(MSG_ADJUST_FAILED);
+                break;
+            case BG_EVENT_WAIT_PAGER_INSERT:
+                //等待插入试纸
+                handler.sendEmptyMessage(MSG_WAIT_INSERT);
+                break;
+            case BG_EVENT_WAIT_DRIP_BLOOD:
+                //等待滴入血液
+                handler.sendEmptyMessage(MSG_WAIT_DRIP);
+                break;
+            case BG_EVENT_BLOOD_SAMPLE_DETECTING:
+                //已采集到血液
+                handler.sendEmptyMessage(MSG_DRIP_BLOOD);
+                break;
+            case BG_EVENT_MEASURE_END:
+
+                break;
+            case BG_EVENT_PAPER_USED:
+                handler.sendEmptyMessage(MSG_PAPER_USED);
+                break;
+            case BG_EVENT_GET_BG_RESULT_TIMEOUT:
+                handler.sendEmptyMessage(MSG_GET_RESULT_TIMEOUT);
+                break;
+
+
+        }
+    }
+
+    @Override
+    public void onBgResult(double bg) {
+        //已获取血糖结果
+        Message message = handler.obtainMessage(MSG_BG_MEASURE_OVER);
+        Bundle bundle = new Bundle();
+        bundle.putDouble(BUNDLE_BG_RESULT, bg);
+        message.setData(bundle);
+        handler.sendMessage(message);
+    }
+
+    private void resetValueBg(){
+        tv_bg_result.setText("--");
+        tv_bg_status.setText(R.string.wait_adjust);
     }
 
 }

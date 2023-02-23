@@ -59,7 +59,7 @@
 
         <activity
         android:name=".UI.TriyajActivity"
-        android:theme="@style/Theme.Design.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar.Bridge">
     </activity>
 
         <activity

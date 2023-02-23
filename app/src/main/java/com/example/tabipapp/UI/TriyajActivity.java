@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.tabipapp.Model.TriyajBilgileri;
 import com.example.tabipapp.R;
+import com.example.tabipapp.UI.MinttiVision.AllMeasureActivity;
 import com.example.tabipapp.UI.MinttiVision.BluetoothActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

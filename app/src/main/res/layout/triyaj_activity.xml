@@ -363,7 +363,7 @@
                                             android:id="@+id/ekg"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
-                                            android:layout_marginLeft="15dp"
+                                            android:layout_marginLeft="10dp"
                                             android:background="@drawable/koluk_no_button"
                                             android:padding="5dp"></Button>
                                     </LinearLayout>
@@ -422,7 +422,7 @@
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
                                     android:layout_weight="2.4"
                                     android:gravity="top"
@@ -649,7 +649,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="10dp"
                                     android:layout_weight="0.6"
-                                    android:background="@drawable/ic_renk_gecisli_button"
+                                    android:background="@drawable/ic_yesil_button"
                                     android:drawableLeft="@android:drawable/ic_menu_edit"
                                     android:paddingLeft="40dp"
                                     android:text="Mesaj Yaz               "
@@ -677,7 +677,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginLeft="10dp"
                                     android:layout_weight="0.6"
-                                    android:background="@drawable/ic_renk_gecisli_button"
+                                    android:background="@drawable/ic_yesil_button"
                                     android:drawableLeft="@android:drawable/ic_dialog_map"
                                     android:paddingLeft="40dp"
                                     android:text="Divert                    "

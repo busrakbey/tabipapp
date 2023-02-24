@@ -82,7 +82,7 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
     ChartView ecg_view;
     TextView tv_ecg_duration, tv_rr_max_key, tv_rr_max_value, tv_rr_min_key, tv_rr_min_value, tv_avg_hr_key, tv_avg_hr_value, tv_hrv_key, tv_hrv_value, tv_resp_key, tv_resp_value;
     AppCompatSpinner gain_spinner, spin_test_paper_manufacturer, spin_test_paper_code;
-    TextView tv_bg_result, tv_bg_status;
+    TextView tv_bg_result, tv_bg_status, tv_bg_result2;
     LinearLayout ll_select_paper_code_container;
 
 
@@ -524,6 +524,7 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
 
                 case MSG_ADJUST_FAILED:
                     tv_bg_result.setText(R.string.adjust_failed);
+                    tv_bg_result2.setText("--");
                     Toast.makeText(AllMeasureActivity.this, getString(R.string.adjust_failed),
                             Toast.LENGTH_LONG).show();
                     bt_measure_bt.setText(R.string.start_measure);
@@ -542,6 +543,7 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
                     Bundle bundle = msg.getData();
                     tv_bg_status.setText(R.string.bg_measure_over);
                     tv_bg_result.setText((bundle.getDouble(BUNDLE_BG_RESULT)) +"mmol/L");
+                    tv_bg_result2.setText((bundle.getDouble(BUNDLE_BG_RESULT)) * (double) 18 +"mg/dL");
                     bt_measure_bt.setText(R.string.start_measure);
                     return true;
                 case MSG_PAPER_USED:
@@ -745,6 +747,7 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
         spin_test_paper_manufacturer = findViewById(R.id.spin_test_paper_manufacturer);
         spin_test_paper_code = findViewById(R.id.spin_test_paper_code);
         tv_bg_result = findViewById(R.id.tv_bg_result);
+        tv_bg_result2= findViewById(R.id.tv_bg_result2);
         tv_bg_status = findViewById(R.id.tv_bg_status);
         ll_select_paper_code_container = findViewById(R.id.ll_select_paper_code_container);
     }
@@ -809,6 +812,7 @@ public class AllMeasureActivity extends AppCompatActivity implements IBtResultLi
 
     private void resetValueBg(){
         tv_bg_result.setText("--");
+        tv_bg_result2.setText("--");
         tv_bg_status.setText(R.string.wait_adjust);
     }
 
